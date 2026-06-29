@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+<meta name="theme-color" content="#060816"/>
+<meta name="description" content="Master Flutter, ML, Deep Learning, RL, NLP, LLMs and RAG through gamified coding challenges."/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="FlutterQuest"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<title>FlutterQuest AI</title>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icons/favicon.png"/>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--neon:#00FFD1;--neon2:#BF5FFF;--neon3:#FF4D6D;--neon4:#FFD600;--neon5:#00B4FF;--bg:#060816;--bg2:#0C1220;--surface:#131D2E;--surface2:#1A2640;--border:#1E3050;--text:#E8F0FF;--muted:#7A90B8;--mono:'JetBrains Mono',monospace;--display:'Orbitron',sans-serif;--body:'Inter',sans-serif;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--text);overflow:hidden;overscroll-behavior:none}
+#app{width:100%;max-width:480px;margin:0 auto;height:100%;height:100dvh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-top:var(--safe-top);padding-bottom:var(--safe-bot)}
+#bgc{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.z1{position:relative;z-index:1}
+.sw{position:relative;z-index:1;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.sw::-webkit-scrollbar{width:3px}.sw::-webkit-scrollbar-thumb{background:var(--neon);border-radius:2px;opacity:.4}
+.screen{display:none;flex-direction:column;min-height:100%}
+.screen.active{display:flex}
+
+#splash{align-items:center;justify-content:center;padding:28px 22px;text-align:center}
+.slogo{width:84px;height:84px;border-radius:22px;background:linear-gradient(135deg,#0C1220,#1A2640);border:2px solid var(--neon);display:flex;align-items:center;justify-content:center;margin-bottom:14px;box-shadow:0 0 40px rgba(0,255,209,.4);animation:lp 3s ease-in-out infinite}
+@keyframes lp{0%,100%{box-shadow:0 0 30px rgba(0,255,209,.3)}50%{box-shadow:0 0 60px rgba(0,255,209,.6)}}
+.slogo span{font-family:var(--display);font-size:30px;font-weight:900;color:var(--neon)}
+.stt{font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:3px}
+.sst{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:18px}
+.pl{font-size:10px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid}
+.pl.g{color:var(--neon);border-color:rgba(0,255,209,.3);background:rgba(0,255,209,.08)}
+.pl.p{color:var(--neon2);border-color:rgba(191,95,255,.3);background:rgba(191,95,255,.08)}
+.pl.r{color:var(--neon3);border-color:rgba(255,77,109,.3);background:rgba(255,77,109,.08)}
+.pl.y{color:var(--neon4);border-color:rgba(255,214,0,.3);background:rgba(255,214,0,.08)}
+.pl.b{color:var(--neon5);border-color:rgba(0,180,255,.3);background:rgba(0,180,255,.08)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-bottom:18px}
+.fc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 10px;display:flex;align-items:flex-start;gap:8px;text-align:left}
+.fc .fi{font-size:20px;flex-shrink:0}
+.fc h4{font-size:12px;font-weight:600;margin-bottom:2px}.fc p{font-size:10px;color:var(--muted);line-height:1.4}
+.bp{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--neon),#00B894);color:#060816;border:none;font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;margin-bottom:9px;box-shadow:0 0 20px rgba(0,255,209,.3)}
+.bp:active{transform:scale(.98)}
+.bg{width:100%;padding:12px;border-radius:12px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px;cursor:pointer}
+.bg:active{transform:scale(.98)}
+
+.at{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.bk{background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.bk:active{transform:scale(.94)}
+.abr{font-family:var(--display);font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ab{padding:0 18px}
+.ah{font-family:var(--display);font-size:20px;font-weight:700;margin:18px 0 4px;background:linear-gradient(90deg,var(--text),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.as{font-size:12px;color:var(--muted);margin-bottom:20px}
+.fgr{margin-bottom:13px}
+.fl{font-size:10px;font-weight:700;color:var(--neon);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px;display:block}
+.fi-in{width:100%;padding:12px 13px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:14px;color:var(--text);outline:none;font-family:var(--body);transition:all .2s}
+.fi-in:focus{border-color:var(--neon);box-shadow:0 0 12px rgba(0,255,209,.2)}
+.fi-in::placeholder{color:var(--muted)}
+.fi-in.err{border-color:var(--neon3)}
+.fe{font-size:10px;color:var(--neon3);margin-top:3px;display:none}.fe.show{display:block}
+.pw{position:relative}.pw .fi-in{padding-right:42px}
+.pwe{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px}
+.dv{display:flex;align-items:center;gap:8px;margin:14px 0}.dl{flex:1;height:1px;background:var(--border)}.dv span{font-size:11px;color:var(--muted)}
+.sr{display:flex;gap:8px;margin-bottom:14px}
+.sb{flex:1;padding:11px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:12px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.sb:active{transform:scale(.97)}
+.asw{text-align:center;font-size:12px;color:var(--muted);margin-top:12px}.asw a{color:var(--neon);cursor:pointer;font-weight:600}
+.sbb{display:flex;gap:3px;margin-top:5px}.sg{flex:1;height:3px;border-radius:2px;background:var(--border);transition:background .3s}
+.sg.w{background:var(--neon3)}.sg.m{background:var(--neon4)}.sg.s{background:var(--neon)}
+
+.hud{display:flex;align-items:center;padding:10px 13px 7px;border-bottom:1px solid var(--border);background:rgba(6,8,22,.95);backdrop-filter:blur(12px);flex-shrink:0;gap:6px}
+.hl{font-family:var(--display);font-size:11px;font-weight:900;background:linear-gradient(135deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-right:auto}
+.hh{display:flex;gap:2px}.hh-i{font-size:13px}.hh-i.lost{filter:grayscale(1);opacity:.25}
+.hx{font-family:var(--display);font-size:10px;color:var(--neon4);font-weight:700}
+.hav{width:27px;height:27px;border-radius:50%;border:2px solid var(--neon);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--neon);cursor:pointer;font-family:var(--display)}
+.xr{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);padding:5px 13px 0;flex-shrink:0}
+.xt{height:3px;background:var(--border);border-radius:2px;margin:5px 13px 0;flex-shrink:0}.xf{height:100%;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+
+.hp{padding:12px}
+.tt{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;scrollbar-width:none}.tt::-webkit-scrollbar{display:none}
+.tb{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;font-family:var(--display);letter-spacing:.5px;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:var(--surface)}
+.tb.active{border-color:var(--neon);color:var(--neon);background:rgba(0,255,209,.08)}
+.season{background:linear-gradient(135deg,#0C1830,#1A0C30);border:1px solid var(--neon2);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sic{font-size:26px}.stx h3{font-family:var(--display);font-size:10px;font-weight:700;color:var(--neon2);letter-spacing:1px;margin-bottom:2px}.stx p{font-size:10px;color:var(--muted)}
+.sstk{margin-left:auto;display:flex;flex-direction:column;align-items:center;font-family:var(--display);font-size:16px;font-weight:900;color:var(--neon4)}.sstk small{font-size:8px;color:var(--muted);font-family:var(--body);font-weight:400}
+.ec{background:var(--surface);border:1px solid rgba(255,77,109,.25);border-radius:14px;padding:13px;margin-bottom:12px}
+.ec h3{font-family:var(--display);font-size:9px;font-weight:700;color:var(--neon3);letter-spacing:1.5px;margin-bottom:9px}
+.er{display:flex;align-items:center;gap:9px;background:var(--bg2);border-radius:9px;padding:9px 11px;margin-bottom:6px;cursor:pointer;border:1px solid transparent;transition:all .15s}
+.er:last-child{margin-bottom:0}.er:active{border-color:var(--neon3)}
+.er .ei{font-size:18px;width:28px;text-align:center}.er .et{flex:1}.er .et h4{font-size:11px;font-weight:500}.er .et p{font-size:10px;color:var(--muted)}
+.er .ew{font-size:11px;font-weight:700;color:var(--neon3);font-family:var(--display)}
+.sh{font-family:var(--display);font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+.lg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.lc{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:13px 11px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.lc:active{transform:scale(.97)}
+.lc.c0{border-color:rgba(0,255,209,.25)}.lc.c1{border-color:rgba(191,95,255,.25)}.lc.c2{border-color:rgba(255,77,109,.25)}.lc.c3{border-color:rgba(255,214,0,.25)}.lc.c4{border-color:rgba(0,180,255,.25)}
+.lc.locked{opacity:.35;cursor:not-allowed}.lc.locked:active{transform:none}
+.lct{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px}.lci{font-size:22px}
+.lch{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700;letter-spacing:.4px;font-family:var(--display)}
+.cd{background:rgba(0,255,209,.12);color:var(--neon);border:1px solid rgba(0,255,209,.25)}
+.cl{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.cn{background:rgba(191,95,255,.12);color:var(--neon2);border:1px solid rgba(191,95,255,.25)}
+.lcn{font-size:11px;font-weight:600;margin-bottom:2px}.lcs{font-size:9px;color:var(--muted)}
+.lcb{height:2px;background:var(--border);border-radius:1px;margin-top:7px}.lcp{height:100%;border-radius:1px;transition:width .5s}
+
+.ch{display:flex;align-items:center;gap:8px;padding:11px 13px 9px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(6,8,22,.9)}
+.cht{font-family:var(--display);font-size:11px;font-weight:700;color:var(--neon);letter-spacing:1px}
+.cpt{flex:1;height:4px;background:var(--border);border-radius:2px}.cpf{height:100%;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;transition:width .4s}
+.cnm{font-size:10px;color:var(--muted);font-family:var(--display)}
+.cp{padding:13px}
+.th{background:linear-gradient(135deg,rgba(191,95,255,.07),rgba(0,255,209,.03));border:1px solid rgba(191,95,255,.2);border-radius:12px;padding:12px 13px;margin-bottom:11px;font-size:12px;color:var(--muted);line-height:1.65}
+.th strong{color:var(--neon2)}.th code{font-family:var(--mono);font-size:11px;color:var(--neon);background:rgba(0,255,209,.08);padding:1px 5px;border-radius:3px}
+.dp{background:linear-gradient(135deg,rgba(0,180,255,.06),rgba(0,180,255,.02));border:1px solid rgba(0,180,255,.2);border-left:3px solid var(--neon5);border-radius:0 10px 10px 0;padding:11px 12px;margin-bottom:11px;font-size:11px;color:var(--muted);line-height:1.6}
+.dp .dh{font-family:var(--display);font-size:9px;font-weight:700;color:var(--neon5);letter-spacing:1px;margin-bottom:5px}.dp strong{color:var(--text)}
+.cd-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:11px}.cd-desc code{font-family:var(--mono);font-size:11px;color:var(--neon);background:rgba(0,255,209,.08);padding:1px 5px;border-radius:3px}
+.cb{background:#070B15;border:1px solid var(--border);border-radius:12px;padding:13px;font-family:var(--mono);font-size:11px;color:#A8C8FF;line-height:1.85;margin-bottom:11px;white-space:pre-wrap;word-break:break-word}
+.cb .kw{color:#BF5FFF}.cb .cn2{color:var(--neon)}
+.bl{display:inline-block;min-width:90px;height:19px;background:rgba(0,255,209,.07);border-radius:4px;border-bottom:2px solid var(--neon);vertical-align:middle;text-align:center;font-size:11px;color:var(--neon);font-weight:600;padding:0 6px}
+.bl.fl{background:rgba(0,255,209,.14)}
+.ol{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px}
+.og{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+.oc{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:7px 15px;font-size:11px;font-family:var(--mono);color:var(--text);cursor:pointer;transition:all .15s;user-select:none}
+.oc:active{transform:scale(.96)}.oc.sel{background:rgba(0,255,209,.1);border-color:var(--neon);color:var(--neon)}
+.hb{display:flex;align-items:center;gap:7px;width:100%;padding:9px 13px;background:rgba(191,95,255,.07);border:1px solid rgba(191,95,255,.22);border-radius:10px;color:var(--neon2);font-size:11px;cursor:pointer;margin-bottom:9px}
+.hb:active{transform:scale(.99)}
+.aib{background:rgba(191,95,255,.06);border:1px solid rgba(191,95,255,.18);border-radius:12px;padding:11px 13px;font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:9px;display:none}
+.aib.show{display:block}.aib strong{color:var(--neon2)}
+.subb{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--neon),#00B894);color:#060816;border:none;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer}
+.subb:active{transform:scale(.98)}.subb:disabled{background:var(--border);color:var(--muted)}
+.rc{border-radius:12px;padding:13px;margin-bottom:11px;font-size:12px;line-height:1.6}.rc h3{font-family:var(--display);font-size:11px;font-weight:700;margin-bottom:5px}
+.rok{background:rgba(0,255,209,.06);border:1px solid rgba(0,255,209,.25);color:#A8E6DA}.rok h3{color:var(--neon)}
+.rng{background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.25);color:#F5B0BC}.rng h3{color:var(--neon3)}
+.rc .dex{background:rgba(0,180,255,.05);border:1px solid rgba(0,180,255,.15);border-radius:8px;padding:9px 11px;margin-top:8px;font-size:11px;color:var(--muted);line-height:1.6}.rc .dex strong{color:var(--neon5)}
+.cbn{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--neon),#00B894);color:#060816;border:none;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer}
+.cbn:active{transform:scale(.98)}
+
+.cmp{display:flex;flex-direction:column;align-items:center;padding:30px 22px;text-align:center}
+.ctr{font-size:56px;margin-bottom:14px;animation:bn 1s ease}@keyframes bn{0%,100%{transform:scale(1)}30%{transform:scale(1.15)}60%{transform:scale(.95)}}
+.ctt{font-family:var(--display);font-size:17px;font-weight:900;background:linear-gradient(135deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
+.csb{font-size:12px;color:var(--muted);margin-bottom:20px}
+.cf{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px;width:100%;margin-bottom:18px;text-align:left}
+.cf h4{font-family:var(--display);font-size:9px;font-weight:700;color:var(--neon5);letter-spacing:1px;margin-bottom:8px}
+.cfi{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:5px;padding-left:10px;border-left:2px solid var(--neon5)}
+.str{display:flex;gap:10px;margin-bottom:18px;width:100%}
+.stb{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px 10px;text-align:center;flex:1}.stb .sv{font-family:var(--display);font-size:18px;font-weight:700;color:var(--neon)}.stb .sl{font-size:9px;color:var(--muted);margin-top:2px}
+
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;margin:12px;text-align:center;position:relative;overflow:hidden}
+.pav{width:60px;height:60px;border-radius:50%;border:3px solid var(--neon);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:20px;font-weight:700;color:var(--neon);margin:0 auto 9px;box-shadow:0 0 20px rgba(0,255,209,.25)}
+.pn{font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:2px}.pe{font-size:11px;color:var(--muted);margin-bottom:13px}
+.psr{display:flex;justify-content:space-around;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 0;margin-bottom:13px}
+.ps{text-align:center}.ps .pv{font-family:var(--display);font-size:16px;font-weight:700;color:var(--neon)}.ps .pl2{font-size:9px;color:var(--muted)}
+.lob{width:100%;padding:11px;border-radius:10px;background:transparent;border:1px solid rgba(255,77,109,.35);color:var(--neon3);font-size:12px;cursor:pointer;margin-bottom:8px}
+.rsb{width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:11px;cursor:pointer}
+.htc{background:var(--surface);border:1px solid rgba(255,77,109,.25);border-radius:14px;padding:13px;margin:0 12px 12px}
+.htc h3{font-family:var(--display);font-size:9px;font-weight:700;color:var(--neon3);letter-spacing:1.5px;margin-bottom:9px}
+.ht{display:flex;align-items:center;gap:9px;background:var(--bg2);border-radius:9px;padding:9px 11px;margin-bottom:6px;cursor:pointer;border:1px solid transparent}
+.ht:active{border-color:var(--neon3)}.ht .hi{font-size:17px}.ht .htx{flex:1;font-size:11px;color:var(--muted)}.ht .hr{font-size:10px;font-weight:700;color:var(--neon3);font-family:var(--display)}
+
+.toast{position:fixed;bottom:calc(22px + var(--safe-bot));left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--neon);color:var(--neon);padding:10px 20px;border-radius:20px;font-size:12px;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:999;box-shadow:0 0 20px rgba(0,255,209,.25);font-family:var(--display);letter-spacing:.5px;max-width:90%}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.xpp{position:fixed;top:calc(55px + var(--safe-top));right:14px;background:var(--surface2);border:1px solid var(--neon4);border-radius:20px;padding:5px 13px;font-family:var(--display);font-size:12px;font-weight:700;color:var(--neon4);opacity:0;transition:all .25s;pointer-events:none;z-index:999}
+.xpp.show{opacity:1;transform:translateY(-8px)}
+.sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(0,255,209,.2);border-top-color:var(--neon);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+.sp.dk{border-color:rgba(6,8,22,.2);border-top-color:#060816}
+@keyframes spin{to{transform:rotate(360deg)}}
+.install-bar{position:fixed;bottom:calc(16px + var(--safe-bot));left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:452px;background:var(--surface2);border:1px solid var(--neon);border-radius:14px;padding:11px 13px;display:none;align-items:center;gap:10px;z-index:998;box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.install-bar.show{display:flex}
+.install-bar .ib-ic{width:34px;height:34px;border-radius:9px;background:#0C1220;border:1px solid var(--neon);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;color:var(--neon);font-size:13px;flex-shrink:0}
+.install-bar .ib-tx{flex:1}.install-bar .ib-tx h4{font-size:12px;font-weight:600}.install-bar .ib-tx p{font-size:10px;color:var(--muted)}
+.install-bar .ib-b{padding:7px 14px;border-radius:8px;background:var(--neon);color:#060816;border:none;font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.install-bar .ib-x{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0 4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<canvas id="bgc"></canvas>
+<div id="app">
+
+<div class="screen active z1" id="splash">
+  <div class="slogo"><span>AI</span></div>
+  <div class="stt">FLUTTERQUEST AI</div>
+  <div class="sst">Flutter · ML · DL · RL · NLP · RAG · LLMs</div>
+  <div class="pills">
+    <span class="pl g">Flutter</span><span class="pl p">Deep Learning</span><span class="pl r">Reinforcement</span>
+    <span class="pl y">NLP</span><span class="pl b">LLMs &amp; RAG</span><span class="pl g">Vision</span><span class="pl p">MLOps</span><span class="pl r">Transformers</span>
+  </div>
+  <div class="fg">
+    <div class="fc"><span class="fi">🧠</span><div><h4>15 AI Tracks</h4><p>Basics to frontier research</p></div></div>
+    <div class="fc"><span class="fi">⚡</span><div><h4>Deep Dives</h4><p>Real math, code, intuition</p></div></div>
+    <div class="fc"><span class="fi">🤖</span><div><h4>AI Tutor</h4><p>Explains every concept</p></div></div>
+    <div class="fc"><span class="fi">❤️</span><div><h4>Earn Hearts</h4><p>Tasks and streaks refill</p></div></div>
+  </div>
+  <button class="bp" onclick="show('register')">START LEARNING ⚡</button>
+  <button class="bg" onclick="show('login')">Already have an account</button>
+</div>
+
+<div class="screen z1" id="register" style="flex-direction:column">
+  <div class="at"><button class="bk" onclick="show('splash')">←</button><span class="abr">FLUTTERQUEST AI</span></div>
+  <div class="sw"><div class="ab">
+    <h1 class="ah">CREATE ACCOUNT</h1><p class="as">Join the AI learning revolution</p>
+    <div class="sr"><button class="sb" onclick="soc('Google')">🌐 Google</button><button class="sb" onclick="soc('Apple')">🍎 Apple</button></div>
+    <div class="dv"><div class="dl"></div><span>or</span><div class="dl"></div></div>
+    <div style="display:flex;gap:9px">
+      <div class="fgr" style="flex:1"><label class="fl">First Name</label><input class="fi-in" id="r-fn" placeholder="Alex"/><div class="fe" id="e-fn">Required</div></div>
+      <div class="fgr" style="flex:1"><label class="fl">Last Name</label><input class="fi-in" id="r-ln" placeholder="Kim"/></div>
+    </div>
+    <div class="fgr"><label class="fl">Username</label><input class="fi-in" id="r-un" placeholder="ai_gamer99"/><div class="fe" id="e-un">Choose a username</div></div>
+    <div class="fgr"><label class="fl">Email</label><input class="fi-in" id="r-em" type="email" placeholder="alex@example.com"/><div class="fe" id="e-em">Valid email required</div></div>
+    <div class="fgr"><label class="fl">Password</label><div class="pw"><input class="fi-in" id="r-pw" type="password" placeholder="Min 8 characters" oninput="strg(this.value)"/><button class="pwe" onclick="tp('r-pw',this)">👁</button></div><div class="sbb"><div class="sg" id="sg1"></div><div class="sg" id="sg2"></div><div class="sg" id="sg3"></div><div class="sg" id="sg4"></div></div><div class="fe" id="e-pw">Min 8 chars required</div></div>
+    <div class="fgr"><label class="fl">Learning Goal</label>
+      <select class="fi-in" id="r-goal"><option value="">Select your goal</option><option>🌱 Beginner — Start from scratch</option><option>⚡ Build Flutter + ML apps</option><option>🔥 Master AI/ML research</option><option>🚀 Deploy production AI</option></select>
+    </div>
+    <button class="bp" id="rbtn" onclick="doReg()" style="margin-top:4px">CREATE ACCOUNT</button>
+    <p class="asw">Already playing? <a onclick="show('login')">Sign In</a></p>
+    <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:10px;padding-bottom:20px">By registering you agree to our Terms and Privacy Policy</p>
+  </div></div>
+</div>
+
+<div class="screen z1" id="login" style="flex-direction:column">
+  <div class="at"><button class="bk" onclick="show('splash')">←</button><span class="abr">FLUTTERQUEST AI</span></div>
+  <div class="sw"><div class="ab">
+    <h1 class="ah">WELCOME BACK</h1><p class="as">Continue your AI journey</p>
+    <div class="sr"><button class="sb" onclick="soc('Google')">🌐 Google</button><button class="sb" onclick="soc('Apple')">🍎 Apple</button></div>
+    <div class="dv"><div class="dl"></div><span>or</span><div class="dl"></div></div>
+    <div class="fgr"><label class="fl">Email</label><input class="fi-in" id="l-em" type="email" placeholder="alex@example.com"/><div class="fe" id="e-lem">Valid email required</div></div>
+    <div class="fgr"><label class="fl">Password</label><div class="pw"><input class="fi-in" id="l-pw" type="password" placeholder="Your password"/><button class="pwe" onclick="tp('l-pw',this)">👁</button></div><div class="fe" id="e-lpw">Enter password</div></div>
+    <div style="text-align:right;margin-bottom:14px"><a style="font-size:10px;color:var(--neon);cursor:pointer;font-family:var(--display);letter-spacing:.5px" onclick="toast('Reset link sent (demo)')">FORGOT PASSWORD?</a></div>
+    <button class="bp" id="lbtn" onclick="doLog()">SIGN IN</button>
+    <p class="asw">New player? <a onclick="show('register')">Create account</a></p>
+  </div></div>
+</div>
+
+<div class="screen z1" id="main" style="flex-direction:column">
+  <div class="hud"><span class="hl">FQ·AI</span><div class="hh" id="hh"></div><span class="hx" id="hx">0 XP</span><div class="hav" id="hav" onclick="show('profile')">?</div></div>
+  <div class="xr z1"><span style="font-family:var(--display);letter-spacing:.5px;font-size:10px">LVL <span id="plvl">1</span></span><span id="xpr">0/100 XP</span></div>
+  <div class="xt z1"><div class="xf" id="xf" style="width:0%"></div></div>
+  <div class="sw"><div class="hp">
+    <div class="season"><span class="sic">🧠</span><div class="stx"><h3>SEASON 1: AI MASTERY</h3><p>15 tracks · 90+ challenges</p></div><div class="sstk" id="strd">1<small>STREAK</small></div></div>
+    <div class="ec">
+      <h3>❤️ EARN HEARTS</h3>
+      <div class="er" onclick="earn('watch')"><span class="ei">📺</span><div class="et"><h4>Watch an AI concept video</h4><p>2-min deep dive</p></div><span class="ew">+1 ❤️</span></div>
+      <div class="er" onclick="earn('drill')"><span class="ei">⌨️</span><div class="et"><h4>Complete a practice drill</h4><p>5-question sprint</p></div><span class="ew">+1 ❤️</span></div>
+      <div class="er" onclick="earn('share')"><span class="ei">🔗</span><div class="et"><h4>Share with a friend</h4><p>Spread the knowledge</p></div><span class="ew">+2 ❤️</span></div>
+      <div class="er" onclick="earn('streak')"><span class="ei">🔥</span><div class="et"><h4>3-day learning streak</h4><p>Log in 3 days in a row</p></div><span class="ew">+3 ❤️</span></div>
+    </div>
+    <div class="tt" id="ttabs"></div>
+    <div class="sh">— Lessons —</div>
+    <div class="lg" id="lgrid"></div>
+  </div></div>
+</div>
+
+<div class="screen z1" id="challenge" style="flex-direction:column">
+  <div class="ch"><button class="bk" onclick="show('main')">←</button><span class="cht" id="cttl">LESSON</span><div class="cpt"><div class="cpf" id="cpf" style="width:0%"></div></div><span class="cnm" id="cnum">1/1</span></div>
+  <div class="sw"><div class="cp" id="chin"></div></div>
+</div>
+
+<div class="screen z1" id="complete"><div class="sw" style="justify-content:center"><div class="cmp" id="cmpin"></div></div></div>
+
+<div class="screen z1" id="profile" style="flex-direction:column">
+  <div class="at" style="border-bottom:1px solid var(--border)"><button class="bk" onclick="show('main')">←</button><span class="abr">MY PROFILE</span></div>
+  <div class="sw">
+    <div class="pc"><div class="pav" id="pav">?</div><div class="pn" id="pname">—</div><div class="pe" id="pem">—</div><div class="psr"><div class="ps"><div class="pv" id="pxp">0</div><div class="pl2">XP</div></div><div class="ps"><div class="pv" id="pdn">0</div><div class="pl2">Done</div></div><div class="ps"><div class="pv" id="pst">1🔥</div><div class="pl2">Streak</div></div><div class="ps"><div class="pv" id="pht">5❤️</div><div class="pl2">Hearts</div></div></div><button class="lob" onclick="logout()">← Sign Out</button><button class="rsb" onclick="resetProgress()">↻ Reset all progress</button></div>
+    <div class="htc"><h3>❤️ REFILL HEARTS</h3>
+      <div class="ht" onclick="earn('watch')"><span class="hi">📺</span><span class="htx">Watch a concept video</span><span class="hr">+1 ❤️</span></div>
+      <div class="ht" onclick="earn('drill')"><span class="hi">⌨️</span><span class="htx">Complete a practice drill</span><span class="hr">+1 ❤️</span></div>
+      <div class="ht" onclick="earn('share')"><span class="hi">🔗</span><span class="htx">Share FlutterQuest AI</span><span class="hr">+2 ❤️</span></div>
+      <div class="ht" onclick="earn('streak')"><span class="hi">🔥</span><span class="htx">Maintain 3-day streak</span><span class="hr">+3 ❤️</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="toast" id="toast"></div>
+<div class="xpp" id="xpp">+0 XP</div>
+<div class="install-bar" id="installbar">
+  <div class="ib-ic">AI</div>
+  <div class="ib-tx"><h4>Install FlutterQuest AI</h4><p>Add to your home screen</p></div>
+  <button class="ib-b" id="installbtn">INSTALL</button>
+  <button class="ib-x" onclick="dismissInstall()">×</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
