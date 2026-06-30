@@ -4,7 +4,7 @@
   "description": "Master Flutter, Machine Learning, Deep Learning, RL, NLP, LLMs and RAG through bite-sized, gamified coding challenges with an AI tutor.",
   "id": "/learn-ai/",
 "start_url": "/learn-ai/",
-"scope": "/learn-ai/"
+"scope": "/learn-ai/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#060816",
